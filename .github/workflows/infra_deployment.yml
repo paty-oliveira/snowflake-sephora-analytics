@@ -4,13 +4,14 @@ on:
   push:
     branches:
       - main
-    paths:
-      - infrastructure/**
 
 jobs:
   snowflake-infrastructure:
     name: "Snowflake infrastructure deployment"
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./infrastructure
     steps:
       - name: Checkout
         uses: actions/checkout@v2
