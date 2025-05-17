@@ -5,6 +5,12 @@ on:
     branches:
       - main
 
+env:
+  TF_VAR_snowflake_account_name: ${{ secrets.SNOWFLAKE_ACCOUNT_NAME }}
+  TF_VAR_snowflake_organization_name: ${{ secrets.SNOWFLAKE_ORGANIZATION_NAME }}
+  TF_VAR_snowflake_password: ${{ secrets.SNOWFLAKE_PASSWORD }}
+  TF_VAR_snowflake_user: ${{ secrets.SNOWFLAKE_USER }}
+
 jobs:
   snowflake-infrastructure:
     name: "Snowflake infrastructure deployment"
@@ -36,8 +42,3 @@ jobs:
       - name: Terraform Apply
         id: apply
         run: terraform apply -auto-approve
-        env:
-          TF_VAR_SNOWFLAKE_ACCOUNT_NAME: ${{ secrets.SNOWFLAKE_ACCOUNT_NAME }}
-          TF_VAR_SNOWFLAKE_ORGANIZATION_NAME: ${{ secrets.SNOWFLAKE_ORGANIZATION_NAME }}
-          TF_VAR_SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
-          TF_VAR_SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}

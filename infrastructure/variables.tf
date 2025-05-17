@@ -21,9 +21,3 @@ variable "snowflake_password" {
   description = "Snowflake password."
   sensitive   = true
 }
-
-variable "snowflake_region" {
-  type        = string
-  description = "Snowflake account region."
-
-}
