@@ -23,6 +23,20 @@ resource "snowflake_grant_account_role" "engineer_user_grant" {
   user_name = var.snowflake_user
 }
 
+resource "snowflake_warehouse" "engineer_warehouse" {
+  name           = "WAREHOUSE_ENGINEER_S"
+  warehouse_size = "small"
+}
+
+resource "snowflake_grant_privileges_to_account_role" "warehouse_role_priviliges" {
+  account_role_name = snowflake_account_role.engineer_role.name
+  all_privileges    = true
+  on_account_object {
+    object_type = "WAREHOUSE"
+    object_name = snowflake_warehouse.engineer_warehouse.name
+  }
+}
+
 resource "snowflake_database" "sephora_db" {
   name = "SEPHORA_ANALYTICS"
 }
