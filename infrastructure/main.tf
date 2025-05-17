@@ -18,13 +18,9 @@ resource "snowflake_grant_privileges_to_account_role" "engineer_role_priviliges"
   }
 }
 
-resource "snowflake_user" "engineer_user" {
-  name = "engineer_user"
-}
-
 resource "snowflake_grant_account_role" "engineer_user_grant" {
   role_name = snowflake_account_role.engineer_role.name
-  user_name = snowflake_user.engineer_user.name
+  user_name = var.snowflake_user
 }
 
 resource "snowflake_database" "sephora_db" {
