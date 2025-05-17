@@ -8,7 +8,7 @@ provider "snowflake" {
 
 # Create ENGINEER_ROLE role
 resource "snowflake_account_role" "engineer_role" {
-  name = "ROLE_ENGINEER"
+  name = local.role_name
 }
 
 # Grant ALL PRIVILEGES to ROLE_ENGINEER role for the Sephora database
@@ -38,7 +38,7 @@ resource "snowflake_grant_account_role" "engineer_user_grant" {
 
 # Create WAREHOUSE_ENGINEER_S warehouse
 resource "snowflake_warehouse" "engineer_warehouse" {
-  name           = "WAREHOUSE_ENGINEER_S"
+  name           = local.warehouse_name
   warehouse_size = "small"
 }
 
@@ -54,5 +54,5 @@ resource "snowflake_grant_privileges_to_account_role" "warehouse_role_privileges
 
 # Create Sephora database
 resource "snowflake_database" "sephora_db" {
-  name = "SEPHORA_ANALYTICS"
+  name = local.database_name
 }
