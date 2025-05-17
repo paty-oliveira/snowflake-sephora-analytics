@@ -5,13 +5,6 @@ on:
     branches:
       - main
 
-env:
-  TF_VAR_SNOWFLAKE_ACCOUNT_NAME: ${{ secrets.SNOWFLAKE_ACCOUNT_NAME }}
-  TF_VAR_SNOWFLAKE_ORGANIZATION_NAME: ${{ secrets.SNOWFLAKE_ORGANIZATION_NAME }}
-  TF_VAR_SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
-  TF_VAR_SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
-  TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
-
 jobs:
   snowflake-infrastructure:
     name: "Snowflake infrastructure deployment"
@@ -26,7 +19,7 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
         with:
-          cli_config_credentials_token: $TF_API_TOKEN
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
       - name: Terraform Format
         id: fmt
@@ -43,3 +36,8 @@ jobs:
       - name: Terraform Apply
         id: apply
         run: terraform apply -auto-approve
+        env:
+          TF_VAR_SNOWFLAKE_ACCOUNT_NAME: ${{ secrets.SNOWFLAKE_ACCOUNT_NAME }}
+          TF_VAR_SNOWFLAKE_ORGANIZATION_NAME: ${{ secrets.SNOWFLAKE_ORGANIZATION_NAME }}
+          TF_VAR_SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+          TF_VAR_SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
