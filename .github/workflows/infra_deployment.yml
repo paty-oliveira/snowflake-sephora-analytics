@@ -5,12 +5,6 @@ on:
     branches:
       - main
 
-env:
-  TF_VAR_organization_name: ${{ secrets.SNOWFLAKE_ORGANIZATION }}
-  TF_VAR_account_name: ${{ secrets.SNOWFLAKE_ACCOUNT_NAME }}
-  TF_VAR_username: ${{ secrets.SNOWFLAKE_USERNAME }}
-  TF_VAR_private_key_path: "snowflake_key.pem"
-
 jobs:
   snowflake-infrastructure:
     name: "Snowflake infrastructure deployment"
@@ -26,11 +20,6 @@ jobs:
         uses: hashicorp/setup-terraform@v1
         with:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-
-      - name: Decode Private Key
-        run: |
-          echo "${{ secrets.SNOWFLAKE_PRIVATE_KEY_BASE64 }}" | base64 --decode > snowflake_key.pem
-          chmod 600 snowflake_key.pem
 
       - name: Terraform Format
         id: fmt

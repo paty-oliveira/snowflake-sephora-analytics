@@ -10,12 +10,12 @@ variable "account_name" {
 
 variable "username" {
   type        = string
-  description = "Snowflake user name"
+  description = "Snowflake user name."
   sensitive   = true
 }
 
-variable "private_key_path" {
+variable "password" {
   type        = string
-  description = "Filepath of private key"
+  description = "Snowflake password."
   sensitive   = true
 }
