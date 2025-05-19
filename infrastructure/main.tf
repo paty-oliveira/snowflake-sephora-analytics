@@ -5,54 +5,30 @@ provider "snowflake" {
   password          = var.snowflake_password
 }
 
-
-# Create ENGINEER_ROLE role
-resource "snowflake_account_role" "engineer_role" {
-  name = local.role_name
-}
-
-# Grant ALL PRIVILEGES to ROLE_ENGINEER role for the Sephora database
-resource "snowflake_grant_privileges_to_account_role" "engineer_role_priviliges_db" {
-  account_role_name = snowflake_account_role.engineer_role.name
-  all_privileges    = true
-  on_account_object {
-    object_type = "DATABASE"
-    object_name = snowflake_database.sephora_db.name
-  }
-}
-
-# Grant ALL PRIVILEGES to ROLE_ENGINEER role for all the schemas of Sephora database
-resource "snowflake_grant_privileges_to_account_role" "engineer_role_priviliges_schema" {
-  account_role_name = snowflake_account_role.engineer_role.name
-  all_privileges    = true
-  on_schema {
-    all_schemas_in_database = snowflake_database.sephora_db.name
-  }
-}
-
-# Grant user to ROLE_ENGINEER role
-resource "snowflake_grant_account_role" "engineer_user_grant" {
-  role_name = snowflake_account_role.engineer_role.name
-  user_name = var.snowflake_user
-}
-
-# Create WAREHOUSE_ENGINEER_S warehouse
-resource "snowflake_warehouse" "engineer_warehouse" {
-  name           = local.warehouse_name
-  warehouse_size = "small"
-}
-
-# Grant ALL PRIVILEGES to ROLE_ENGINEER role for the WAREHOUSE_ENGINEER_S warehouse
-resource "snowflake_grant_privileges_to_account_role" "warehouse_role_privileges" {
-  account_role_name = snowflake_account_role.engineer_role.name
-  all_privileges    = true
-  on_account_object {
-    object_type = "WAREHOUSE"
-    object_name = snowflake_warehouse.engineer_warehouse.name
-  }
-}
-
 # Create Sephora database
-resource "snowflake_database" "sephora_db" {
-  name = local.database_name
+
+module "database" {
+  source             = "./modules/terraform-snowflake-database"
+  database_name      = local.database_name
+  database_role_name = module.role.role_name
+}
+
+# Create a Role
+module "role" {
+  source    = "./modules/terraform-snowflake-role"
+  role_name = local.role_name
+}
+
+# Create a Warehouse
+module "warehouse" {
+  source              = "./modules/terraform-snowflake-warehouse"
+  warehouse_role_name = module.role.role_name
+  warehouse_name      = local.warehouse_name
+  warehouse_size      = local.warehouse_size
+}
+
+# Grant user to my user
+resource "snowflake_grant_account_role" "engineer_user_grant" {
+  role_name = module.role.role_name
+  user_name = var.snowflake_user
 }
