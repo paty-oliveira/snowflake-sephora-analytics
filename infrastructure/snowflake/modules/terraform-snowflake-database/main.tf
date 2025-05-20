@@ -18,3 +18,10 @@ resource "snowflake_grant_privileges_to_account_role" "grant_all_privileges_on_a
     all_schemas_in_database = snowflake_database.this.name
   }
 }
+
+resource "snowflake_schema" "schemas" {
+  for_each = var.database_schemas
+
+  name     = each.value
+  database = snowflake_database.this.name
+}

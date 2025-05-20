@@ -11,6 +11,7 @@ module "database" {
   source             = "./modules/terraform-snowflake-database"
   database_name      = local.database_name
   database_role_name = module.role.role_name
+  database_schemas   = local.database_schemas
 }
 
 # Create a Role
