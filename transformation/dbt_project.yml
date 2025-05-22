@@ -13,3 +13,7 @@ snapshot-paths: ["snapshots"]
 clean-targets:
   - "target"
   - "dbt_packages"
+
+models:
+  staging:
+    +schema: staging

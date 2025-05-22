@@ -1,0 +1,107 @@
+version: 2
+
+sources:
+  - name: sephora_online
+    database: "{{ target.database }}"
+    schema: "{{ target.schema }}"
+    tables:
+      - name: product_info
+        description: Contains information about all product from the Sephora online store.
+        columns:
+          - name: product_id
+            description: The unique identifier for the product from the website.
+          - name: product_name
+            description: The full name of the product.
+          - name: brand_id
+            description: The unique identifier for the product brand from the website.
+          - name: brand_name
+            description: The full name of the product brand.
+          - name: loves_count
+            description: The number of people who have marked this product as a favorite.
+          - name: rating
+            description: The average rating of the product based on user reviews.
+          - name: reviews
+            description: The number of user reviews for the product.
+          - name: size
+            description: >
+              The size of the product which may be in oz, ml, g, packs, or other units depending
+              on the product type.
+          - name: variation_type
+            description: The type of variation parameter for the product (e.g size, color)
+          - name: variation_value
+            description: The specific value of the variation parameter for the product.
+          - name: variation_desc
+            description: A description of the variation parameter for the product.
+          - name: ingredients
+            description: A list of ingredients included in the product.
+          - name: price_usd
+            description: The price of the product in USD.
+          - name: value_price_usd
+            description: >
+              The potential cost savings of the product, presented on the site next to
+              the regular price.
+          - name: sale_prive_usd
+            description: The sale price of the product in USD.
+          - name: limited_edition
+            description: Indicates whether the product is a limited edition or not.
+          - name: new
+            description: Indicates whether the product is new or not.
+          - name: online_only
+            description: Indicates whether the product is only sold online or not.
+          - name: out_of_stock
+            description: Indicates whether the product is currently out of stock or not.
+          - name: sephora_exclusive
+            description: Indicates whether the product is exclusive to Sephora or not.
+          - name: highlights
+            description: A list of tags or features that highlight the product's attributes.
+          - name: primary_category
+            description: First category in the breadcrumb section.
+          - name: secondary_category
+            description: Second category in the breadcrumb section.
+          - name: tertiary_category
+            description: Third category in the breadcrumb section.
+          - name: child_count
+            description: The number of variations of the product available.
+          - name: child_max_price
+            description: The highest price among the variations of the product.
+          - name: child_min_price
+            description: The lowest price among the variations of the product.
+      - name: reviews
+        description: Contains customer reviews about Sephora online products.
+        columns:
+          - name: author_id
+            description: Customer identifier.
+          - name: rating
+            description: The rating provided by the customer.
+          - name: is_recommended
+            description: Flag indicating if the customer recommends the product.
+          - name: helpfulness
+            description: Value indicating if the review was helpfulness for another customer.
+          - name: total_feedback_count
+            description: Total number of feedback given by the customers.
+          - name: total_neg_feedback_count
+            description: Total number of negative feedback given by the customers.
+          - name: total_pos_feedback_count
+            description: Total number of positive feedback given by the customers.
+          - name: submission_time
+            description: Customer review submission time.
+          - name: review_text
+            description: Text content of the customer review.
+          - name: review_title
+            description: Title of the customer review.
+          - name: skin_tone
+            description: Customer skin tone.
+          - name: eye_color
+            description: Customer eye color.
+          - name: skin_type
+            description: Customer skin type.
+          - name: hair_color
+            description: Customer hair color.
+          - name: product_id
+            description: The unique identifier for the product from the website.
+          - name: product_name
+            description: Full name of the product.
+          - name: brand_name
+            description: Product brand.
+          - name: price_usd
+            description: Product price in USD.
