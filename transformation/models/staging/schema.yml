@@ -1,0 +1,67 @@
+version: 2
+
+models:
+  - name: stg_product_info
+    description: >
+      Staging model that contains information about all product from the Sephora online store.
+    columns:
+      - name: product_id
+        description: The unique identifier for the product from the website.
+      - name: product_name
+        description: The full name of the product.
+      - name: brand_id
+        description: The unique identifier for the product brand from the website.
+      - name: brand_name
+        description: The full name of the product brand.
+      - name: total_loves
+        description: The number of people who have marked this product as a favorite.
+      - name: rating
+        description: The average rating of the product based on user reviews.
+      - name: total_reviews
+        description: The number of user reviews for the product.
+      - name: product_size
+        description: >
+          The size of the product which may be in oz, ml, g, packs, or other units depending
+          on the product type.
+      - name: parameter_type
+        description: The type of variation parameter for the product (e.g size, color)
+      - name: parameter_value
+        description: The specific value of the variation parameter for the product.
+      - name: parameter_description
+        description: A description of the variation parameter for the product.
+      - name: product_ingredients
+        description: A list of ingredients included in the product.
+      - name: product_price_usd
+        description: The price of the product in USD.
+      - name: product_value_price_usd
+        description: >
+          The potential cost savings of the product, presented on the site next to
+          the regular price.
+      - name: product_sales_price_usd
+        description: The sale price of the product in USD.
+      - name: is_product_limited_edition
+        description: Indicates whether the product is a limited edition or not.
+      - name: is_product_new
+        description: Indicates whether the product is new or not.
+      - name: is_product_online_only
+        description: Indicates whether the product is only sold online or not.
+      - name: is_product_out_of_stock
+        description: Indicates whether the product is currently out of stock or not.
+      - name: is_product_sephora_exclusive
+        description: Indicates whether the product is exclusive to Sephora or not.
+      - name: product_highlights
+        description: A list of tags or features that highlight the product's attributes.
+      - name: product_type
+        description: First category in the breadcrumb section.
+      - name: product_category
+        description: Second category in the breadcrumb section.
+      - name: product_sub_category
+        description: Third category in the breadcrumb section.
+      - name: total_product_variations
+        description: The number of variations of the product available.
+      - name: product_variation_max_price_usd
+        description: The highest price among the variations of the product.
+      - name: product_variation_min_price_usd
+        description: The lowest price among the variations of the product.
+      - name: ingested_at
+        description: Timestamp when the record was ingested.

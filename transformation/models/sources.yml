@@ -40,7 +40,7 @@ sources:
             description: >
               The potential cost savings of the product, presented on the site next to
               the regular price.
-          - name: sale_prive_usd
+          - name: sale_price_usd
             description: The sale price of the product in USD.
           - name: limited_edition
             description: Indicates whether the product is a limited edition or not.
