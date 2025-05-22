@@ -1,9 +1,6 @@
 pre-commit
 pandas
 dotenv
-snowflake.snowpark["pandas"]
 sqlalchemy
-logging
-os
 dbt-core
 dbt-snowflake
