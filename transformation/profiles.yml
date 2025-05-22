@@ -1,7 +1,7 @@
 transformation:
   outputs:
     dev:
-      account: "{{ env_var('SNOWFLAKE_ACCOUNT_NAME') }}"
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT_ID') }}"
       database: SEPHORA_ANALYTICS
       password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
       role: ROLE_ENGINEER
