@@ -1,0 +1,13 @@
+transformation:
+  outputs:
+    dev:
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT_NAME') }}"
+      database: SEPHORA_ANALYTICS
+      password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
+      role: ROLE_ENGINEER
+      schema: RAW
+      threads: 1
+      type: snowflake
+      user: "{{ env_var('SNOWFLAKE_USER') }}"
+      warehouse: WAREHOUSE_ENGINEER_S
+  target: dev

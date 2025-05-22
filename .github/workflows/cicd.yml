@@ -1,0 +1,80 @@
+name: Build and Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  TF_VAR_snowflake_account_name: ${{ secrets.SNOWFLAKE_ACCOUNT_NAME }}
+  TF_VAR_snowflake_organization_name: ${{ secrets.SNOWFLAKE_ORGANIZATION_NAME }}
+  TF_VAR_snowflake_password: ${{ secrets.SNOWFLAKE_PASSWORD }}
+  TF_VAR_snowflake_user: ${{ secrets.SNOWFLAKE_USER }}
+  SNOWFLAKE_ACCOUNT_NAME: ${{ secrets.SNOWFLAKE_ACCOUNT_NAME }}
+  SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+  SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
+  DBT_PROJECT_DIR: ./transformation
+  DBT_PROFILES_DIR: ./transformation
+
+jobs:
+  snowflake-infrastructure:
+    name: "Snowflake infrastructure deployment"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./infrastructure/snowflake
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      - name: Terraform Format
+        id: fmt
+        run: terraform fmt -check
+
+      - name: Terraform Init
+        id: init
+        run: terraform init
+
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+
+      - name: Terraform Apply
+        id: apply
+        run: terraform apply -auto-approve
+
+  dbt:
+    name: "Data models deployment"
+    needs: snowflake-infrastructure
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+
+    - name: Cache Python dependencies
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install --cache-dir ~/.cache/pip -r requirements.txt; fi
+
+    - name: Check database connection
+      run: dbt debug
+
+    - name: Install dbt dependencies
+      run: dbt deps
