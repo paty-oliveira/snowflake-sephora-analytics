@@ -65,3 +65,45 @@ models:
         description: The lowest price among the variations of the product.
       - name: ingested_at
         description: Timestamp when the record was ingested.
+
+  - name: reviews
+    description: Contains customer reviews about Sephora online products.
+    columns:
+      - name: customer_id
+        description: Customer identifier.
+      - name: rating
+        description: The rating provided by the customer.
+      - name: is_recommended
+        description: Flag indicating if the customer recommends the product.
+      - name: is_helpfulness
+        description: Value indicating if the review was helpfulness for another customer.
+      - name: total_feedback_count
+        description: Total number of feedback given by the customers.
+      - name: total_neg_feedback_count
+        description: Total number of negative feedback given by the customers.
+      - name: total_pos_feedback_count
+        description: Total number of positive feedback given by the customers.
+      - name: review_title
+        description: Title of the customer review.
+      - name: review_text
+        description: Text content of the customer review.
+      - name: review_submission_time
+        description: Customer review submission time.
+      - name: customer_skin_tone
+        description: Customer skin tone.
+      - name: customer_eye_color
+        description: Customer eye color.
+      - name: customer_skin_type
+        description: Customer skin type.
+      - name: customer_hair_color
+        description: Customer hair color.
+      - name: product_id
+        description: The unique identifier for the product from the website.
+      - name: product_name
+        description: Full name of the product.
+      - name: brand_name
+        description: Product brand.
+      - name: product_price_usd
+        description: Product price in USD.
+      - name: ingested_at
+        description: Timestamp when the record was ingested.
