@@ -78,3 +78,6 @@ jobs:
 
     - name: Install dbt dependencies
       run: dbt deps
+
+    - name: Build data models
+      run: dbt build
