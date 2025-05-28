@@ -69,6 +69,10 @@ models:
   - name: reviews
     description: Contains customer reviews about Sephora online products.
     columns:
+      - name: review_id
+        description: >
+          Unique identifier for the reviews. Combination of customer_id, review_title
+          and review_submission_time columns.
       - name: customer_id
         description: Customer identifier.
       - name: rating

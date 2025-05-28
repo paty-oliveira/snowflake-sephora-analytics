@@ -4,6 +4,8 @@
     )
 }}
 
+{% set composite_key = ['customer_id', 'review_title', 'review_submission_time'] %}
+
 with reviews as (
     select
         author_id as customer_id,
@@ -28,6 +30,7 @@ with reviews as (
 )
 
 select
+    {{ dbt_utils.generate_surrogate_key(composite_key)}} as review_id,
     *,
     to_timestamp(current_timestamp) as ingested_at
 from reviews
