@@ -79,15 +79,20 @@ models:
         data_tests:
           - not_null
 
-  - name: reviews
+  - name: stg_reviews
     description: Contains customer reviews about Sephora online products.
     columns:
       - name: review_id
         description: >
           Unique identifier for the reviews. Combination of customer_id, review_title
           and review_submission_time columns.
+        data_tests:
+          - not_null
+          - unique
       - name: customer_id
         description: Customer identifier.
+        data_tests:
+          - not_null
       - name: rating
         description: The rating provided by the customer.
       - name: is_recommended
@@ -106,6 +111,8 @@ models:
         description: Text content of the customer review.
       - name: review_submission_time
         description: Customer review submission time.
+        data_tests:
+          - not_null
       - name: customer_skin_tone
         description: Customer skin tone.
       - name: customer_eye_color
@@ -116,11 +123,19 @@ models:
         description: Customer hair color.
       - name: product_id
         description: The unique identifier for the product from the website.
+        data_tests:
+          - not_null
       - name: product_name
         description: Full name of the product.
+        data_tests:
+          - not_null
       - name: brand_name
         description: Product brand.
+        data_tests:
+          - not_null
       - name: product_price_usd
         description: Product price in USD.
       - name: ingested_at
         description: Timestamp when the record was ingested.
+        data_tests:
+          - not_null

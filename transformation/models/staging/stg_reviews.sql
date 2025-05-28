@@ -4,8 +4,6 @@
     )
 }}
 
-{% set composite_key = ['customer_id', 'review_title', 'review_submission_time'] %}
-
 with reviews as (
     select
         author_id as customer_id,
@@ -27,10 +25,23 @@ with reviews as (
         brand_name,
         usd_price as product_price_usd
     from {{ source('sephora_online', 'reviews') }}
+),
+
+removed_duplicate_reviews as (
+    select
+        *,
+    from reviews
+    qualify row_number() over (
+        partition by
+            customer_id,
+            total_feedback_count
+        order by
+        review_submission_time desc
+    ) = 1
 )
 
 select
-    {{ dbt_utils.generate_surrogate_key(composite_key)}} as review_id,
+    {{ dbt_utils.generate_surrogate_key(['customer_id', 'total_feedback_count'])}} as review_id,
     *,
     to_timestamp(current_timestamp) as ingested_at
-from reviews
+from removed_duplicate_reviews
