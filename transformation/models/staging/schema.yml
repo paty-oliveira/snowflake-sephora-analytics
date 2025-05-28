@@ -112,61 +112,84 @@ models:
 
   - name: stg_reviews
     description: Contains customer reviews about Sephora online products.
+    config:
+      contract:
+        enforced: true
     columns:
       - name: review_id
         description: >
           Unique identifier for the reviews. Combination of customer_id, review_title
           and review_submission_time columns.
+        data_type: varchar(32)
         data_tests:
           - not_null
           - unique
       - name: customer_id
         description: Customer identifier.
+        data_type: varchar(16777216)
         data_tests:
           - not_null
       - name: rating
         description: The rating provided by the customer.
+        data_type: number(38,0)
       - name: is_recommended
         description: Flag indicating if the customer recommends the product.
+        data_type: boolean
       - name: is_helpfulness
         description: Value indicating if the review was helpfulness for another customer.
+        data_type: number(38,2)
       - name: total_feedback_count
         description: Total number of feedback given by the customers.
+        data_type: number(38,0)
       - name: total_neg_feedback_count
         description: Total number of negative feedback given by the customers.
+        data_type: number(38,0)
       - name: total_pos_feedback_count
         description: Total number of positive feedback given by the customers.
+        data_type: number(38,0)
       - name: review_title
         description: Title of the customer review.
+        data_type: varchar(16777216)
       - name: review_text
         description: Text content of the customer review.
+        data_type: varchar(16777216)
       - name: review_submission_time
         description: Customer review submission time.
+        data_type: date
         data_tests:
           - not_null
       - name: customer_skin_tone
         description: Customer skin tone.
+        data_type: varchar(16777216)
       - name: customer_eye_color
         description: Customer eye color.
+        data_type: varchar(16777216)
       - name: customer_skin_type
         description: Customer skin type.
+        data_type: varchar(16777216)
       - name: customer_hair_color
         description: Customer hair color.
+        data_type: varchar(16777216)
       - name: product_id
         description: The unique identifier for the product from the website.
+        data_type: varchar(16777216)
         data_tests:
           - not_null
       - name: product_name
         description: Full name of the product.
+        data_type: varchar(16777216)
         data_tests:
           - not_null
       - name: brand_name
         description: Product brand.
+        data_type: varchar(16777216)
         data_tests:
           - not_null
       - name: product_price_usd
         description: Product price in USD.
+        data_type: number(38,2)
       - name: ingested_at
         description: Timestamp when the record was ingested.
+        data_type: timestamp_ntz(9)
         data_tests:
           - not_null

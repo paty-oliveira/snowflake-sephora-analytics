@@ -8,8 +8,8 @@ with reviews as (
     select
         author_id as customer_id,
         rating,
-        is_recommended,
-        helpfulness as is_helpfulness,
+        is_recommended::boolean as is_recommended,
+        helpfulness::number(38,2) as is_helpfulness,
         total_feedback_count,
         total_neg_feedback_count,
         total_pos_feedback_count,
