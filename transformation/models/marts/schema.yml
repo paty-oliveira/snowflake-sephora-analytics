@@ -1,0 +1,107 @@
+version: 2
+
+models:
+  - name: dim_product
+    config:
+      contract:
+        enabled: true
+    description: >
+      Product dimension table containing comprehensive product information including
+      basic product details, pricing, categorization, and product flags. This table
+      serves as the master product reference for analytics and reporting.
+    columns:
+      - name: product_id
+        description: Unique identifier for each product.
+        data_type: varchar(16777216)
+        data_tests:
+          - unique
+          - not_null
+      - name: brand_id
+        description: Foreign key reference to the brand dimension.
+        data_type: number(30,0)
+        data_tests:
+          - not_null
+      - name: name
+        description: Product name.
+        data_type: varchar(16777216)
+        data_tests:
+          - not_null
+      - name: brand_name
+        description: Name of the brand that manufactures this product.
+        data_type: varchar(16777216)
+        data_tests:
+          - not_null
+      - name: type
+        description: Product type classification.
+        data_type: varchar(16777216)
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: ['Skincare', 'Makeup', 'Fragrance', 'Hair', 'Tools & Brushes', 'Bath & Body', 'Men']
+      - name: category
+        description: Primary product category for high-level grouping.
+        data_type: varchar(16777216)
+        data_tests:
+          - not_null
+      - name: subcategory
+        description: Detailed product subcategory for more specific classification.
+        data_type: varchar(16777216)
+        data_tests:
+          - not_null
+      - name: highlights
+        description: Key product features and benefits highlighted for marketing.
+        data_type: variant
+      - name: size
+        description: Product size specification (volume, weight, or quantity).
+        data_type: varchar(16777216)
+        data_tests:
+          - not_null
+      - name: ingredients
+        description: List of product ingredients.
+        data_type: variant
+        data_tests:
+          - not_null
+      - name: parameter_type
+        description: Type of product parameter being measured (e.g., coverage, finish, SPF).
+        data_type: varchar(16777216)
+      - name: parameter_value
+        description: Value of the product parameter.
+        data_type: varchar(16777216)
+      - name: parameter_description
+        description: Description of the product parameter.
+        data_type: varchar(16777216)
+      - name: price_usd
+        description: Standard retail price in US dollars.
+        data_type: number(38,0)
+        data_tests:
+          - not_null
+      - name: value_price_usd
+        description: Value/original price before any discounts in US dollars, defaults to 0 if null.
+        data_type: number(38,0)
+        data_tests:
+          - not_null
+      - name: sales_price_usd
+        description: Current sales/promotional price in US dollars, defaults to 0 if null.
+        data_type: number(38,0)
+        data_tests:
+          - not_null
+      - name: is_limited_edition
+        description: Boolean flag indicating if product is a limited edition release.
+        data_type: boolean
+      - name: is_new
+        description: Boolean flag indicating if product is newly launched.
+        data_type: boolean
+      - name: is_online_only
+        description: Boolean flag indicating if product is available online only.
+        data_type: boolean
+      - name: is_out_of_stock
+        description: Boolean flag indicating if the product is out of stock.
+        data_type: boolean
+      - name: is_sephora_exclusice
+        description: Boolean flag indicating if product is exclusive to Sephora.
+        data_type: boolean
+      - name: created_at
+        description: Timestamp when this record was created/last updated.
+        data_type: timestamp_ntz(9)
+        data_tests:
+          - not_null
