@@ -146,3 +146,64 @@ models:
         data_type: timestamp_ntz(9)
         data_tests:
           - not_null
+
+  - name: fct_customer_reviews
+    config:
+      contract:
+        enforced: true
+    description: >
+      Fact table containing customer product reviews with ratings and feedback metrics.
+      This table captures the core review events and serves as the central fact for
+      customer review analytics. Only includes reviews with actual review text content.
+    columns:
+      - name: customer_review_id
+        description: Surrogate key generated from review_id, customer_id, and product_id combination.
+        data_type: varchar(32)
+        data_tests:
+          - unique
+          - not_null
+      - name: review_id
+        description: Unique identifier for each review.
+        data_type: varchar(32)
+        data_tests:
+          - not_null
+      - name: customer_id
+        description: Foreign key reference to dim_customer_attributes.
+        data_type: varchar(16777216)
+        data_tests:
+          - not_null
+      - name: product_id
+        description: Foreign key reference to dim_customer_attributes.
+        data_type: varchar(16777216)
+        data_tests:
+          - not_null
+      - name: review_title
+        description: Title of the customer review.
+        data_type: varchar(16777216)
+      - name: review_text
+        description: Full text content of the customer review.
+        data_type: varchar(16777216)
+        data_tests:
+          - not_null
+      - name: review_rating
+        description: Numeric rating given by customer (typically 1-5 scale).
+        data_type: number(38,0)
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: [1, 2, 3, 4, 5]
+      - name: total_feedback_count
+        description: Total number of helpful/feedback votes received on this review.
+        data_type: number(38,0)
+        data_tests:
+          - not_null
+      - name: submitted_at
+        description: Timestamp when the review was originally submitted by the customer.
+        data_type: date
+        data_tests:
+          - not_null
+      - name: created_at
+        description: Timestamp when this record was created in the data warehouse
+        data_type: timestamp_ntz(9)
+        data_tests:
+          - not_null

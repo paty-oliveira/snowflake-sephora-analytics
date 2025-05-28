@@ -38,5 +38,5 @@ with products_information as (
 
 select
     *,
-    to_timestamp(current_timestamp) as ingested_at
+    to_timestamp_ntz(current_timestamp) as ingested_at
 from products_information

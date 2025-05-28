@@ -43,5 +43,5 @@ removed_duplicate_reviews as (
 select
     {{ dbt_utils.generate_surrogate_key(['customer_id', 'total_feedback_count'])}} as review_id,
     *,
-    to_timestamp(current_timestamp) as ingested_at
+    to_timestamp_ntz(current_timestamp) as ingested_at
 from removed_duplicate_reviews
