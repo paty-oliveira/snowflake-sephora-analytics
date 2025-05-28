@@ -16,6 +16,18 @@ models:
         data_tests:
           - not_null
           - unique
+      - name: product_name
+        description: Product name.
+        data_type: varchar(16777216)
+      - name: product_type
+        description: Product type classification.
+        data_type: varchar(16777216)
+      - name: product_category
+        description: Primary product category for high-level grouping.
+        data_type: varchar(16777216)
+      - name: product_sub_category
+        description: Detailed product subcategory for more specific classification.
+        data_type: varchar(16777216)
       - name: sentiment_summary
         description: >
           Summary of customers feedback for the product, generated using Snowflake Cortex's
