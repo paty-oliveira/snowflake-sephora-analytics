@@ -1,0 +1,37 @@
+version: 2
+
+models:
+  - name: reviews_sentiment_analysis
+    config:
+      contract:
+        enforced: true
+    description: >
+      This model aggregates customer reviews per product and uses Snowflake Cortex to generate a
+      sentiment summary from the collected reviews. It also includes the average rating and total
+      number of reviews per product.
+    columns:
+      - name: product_id
+        description: Unique identifier of the product being reviewed.
+        data_type: varchar(16777216)
+        data_tests:
+          - not_null
+          - unique
+      - name: sentiment_summary
+        description: >
+          Summary of customers feedback for the product, generated using Snowflake Cortex's
+          Claude 3.5 Sonnet model. This includes key sentiments, recurring themes, and suggestions.
+        data_type: varchar(16777216)
+      - name: avg_rating
+        description: Average star rating given by customers for this product.
+        data_type: number(38,2)
+      - name: total_reviews
+        description: Total number of individual reviews submitted for this product.
+        data_type: number(38,0)
+      - name: last_submitted_at
+        description: Date of the most recently submitted review for this product.
+        data_type: date
+      - name: created_at
+        description: Timestamp indicating when the sentiment summary was generated.
+        data_type: timestamp_ntz(9)
+        data_tests:
+          - not_null
