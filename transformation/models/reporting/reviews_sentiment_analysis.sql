@@ -39,4 +39,4 @@ select
     total_reviews,
     last_submitted_at,
     to_timestamp_ntz(current_timestamp) as created_at
-from reviews_aggregated
+from aggreated_reviews
