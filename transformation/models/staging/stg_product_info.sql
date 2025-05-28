@@ -11,7 +11,7 @@ with products_information as (
         product_name,
         brand_name,
         loves_count as total_loves,
-        rating,
+        rating::number(38,0) as rating,
         reviews as total_reviews,
         size as product_size,
         variation_type as parameter_type,
