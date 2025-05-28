@@ -18,3 +18,5 @@ models:
   transformation:
     staging:
       +schema: staging
+    marts:
+      +schema: marts
