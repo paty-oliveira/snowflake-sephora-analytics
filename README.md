@@ -4,7 +4,9 @@ This project analyzes customer reviews from the Sephora product dataset using Sn
 ### Overview
 
 **Goal:** Use Snowflake Cortex's LLM capabilities to perform sentiment analysis on customer reviews.
+
 **Dataset:** Kaggle Sephora product reviews dataset.
+
 **Stack:**
 - Infrastructure: *Terraform*
 - Cloud Data Platform: *Snowflake*
